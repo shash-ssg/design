@@ -737,6 +737,7 @@ section,
   font-size: 36px;
   font-weight: 700;
   line-height: 56px;
+  overflow: visible; /* Prevent text from being cut */
 }
 
 .hero p {
@@ -745,6 +746,7 @@ section,
   font-size: 16px;
   font-weight: 500;
   letter-spacing: 1px;
+  overflow: visible;
 }
 
 @media (max-width: 640px) {
@@ -774,11 +776,11 @@ section,
   0% {
     transform: translateY(5px);
   }
-
   100% {
     transform: translateY(-5px);
   }
 }
+
 
 /*--------------------------------------------------------------
 # About Section
