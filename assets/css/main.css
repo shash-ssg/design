@@ -1618,5 +1618,7 @@ section,
 
 .skills__img {
   border-radius: .5rem;
-  padding-right: 10px;
+  opacity: 60%;
+  height: 35px;
+  padding-right: 20px;
 }
