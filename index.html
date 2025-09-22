@@ -341,7 +341,7 @@
                                 </div>
                             </div>
                         </div><!-- End RA ID Brochure -->
-                        
+
                         <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-flyers">
                             <div class="portfolio-content h-100">
                                 <img alt="" class="img-fluid" src="assets/img/portfolio/flyers/bifold3.jpg">
@@ -385,7 +385,7 @@
                                 </div>
                             </div>
                         </div><!-- End RA Website -->
-                        
+
                         <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-banner">
                             <div class="portfolio-content h-100">
                                 <img alt="" class="img-fluid" src="assets/img/portfolio/banners/ra_vertical.jpg">
@@ -462,7 +462,7 @@
                                 </div>
                             </div>
                         </div><!-- End HM Social Media -->
-                        
+
                         <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-logo">
                             <div class="portfolio-content h-100">
                                 <img alt="" class="img-fluid" src="assets/img/portfolio/logos/fhm.jpg">
@@ -553,7 +553,8 @@
 
                         <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-banner">
                             <div class="portfolio-content h-100">
-                                <img alt="" class="img-fluid" src="assets/img/portfolio/banners/lifeline_horizontal.jpg">
+                                <img alt="" class="img-fluid"
+                                    src="assets/img/portfolio/banners/lifeline_horizontal.jpg">
                                 <div class="portfolio-info">
                                     <a class="glightbox preview-link" href="portfolio-banners-lifeline.html">
                                         <i class="bi bi-zoom-in"></i>
@@ -617,7 +618,7 @@
                                 </div>
                             </div>
                         </div><!-- End ChatApp Website -->
-                        
+
                         <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-web">
                             <div class="portfolio-content h-100">
                                 <img alt="" class="img-fluid" src="assets/img/portfolio/webdesigns/nilanga.jpg">
@@ -1485,38 +1486,82 @@
                     </div><!-- End Info Item -->
 
                 </div>
-
-                <form action="forms/contact.php" class="php-email-form" data-aos="fade-up" data-aos-delay="300"
-                    method="post">
+                <form action="https://formspree.io/f/mdkwnwnk" method="POST" class="php-email-form" data-aos="fade-up"
+                    data-aos-delay="300">
                     <div class="row gy-4">
 
                         <div class="col-md-6">
-                            <input class="form-control" name="name" placeholder="Your Name" required="" type="text">
+                            <input class="form-control" name="name" placeholder="Your Name" required type="text">
                         </div>
 
                         <div class="col-md-6 ">
-                            <input class="form-control" name="email" placeholder="Your Email" required="" type="email">
+                            <input class="form-control" name="email" placeholder="Your Email" required type="email">
                         </div>
 
                         <div class="col-md-12">
-                            <input class="form-control" name="subject" placeholder="Subject" required="" type="text">
+                            <input class="form-control" name="subject" placeholder="Subject" required type="text">
                         </div>
 
                         <div class="col-md-12">
-                            <textarea class="form-control" name="message" placeholder="Message" required=""
+                            <textarea class="form-control" name="message" placeholder="Message" required
                                 rows="6"></textarea>
                         </div>
 
                         <div class="col-md-12 text-center">
-                            <div class="loading">Loading</div>
-                            <div class="error-message"></div>
-                            <div class="sent-message">Your message has been sent. Thank you!</div>
+                            <div class="loading" style="display:none;">Loading</div>
+                            <div class="error-message" style="display:none;"></div>
+                            <div class="sent-message" style="display:none;">Your message has been sent. Thank you!</div>
 
                             <button type="submit">Send Message</button>
                         </div>
 
                     </div>
                 </form><!-- End Contact Form -->
+
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        const form = document.querySelector(".php-email-form");
+                        if (!form) return;
+
+                        const loading = form.querySelector(".loading");
+                        const errorMessage = form.querySelector(".error-message");
+                        const sentMessage = form.querySelector(".sent-message");
+
+                        form.addEventListener("submit", async function (e) {
+                            e.preventDefault();
+
+                            // Reset messages
+                            loading.style.display = "block";
+                            errorMessage.style.display = "none";
+                            sentMessage.style.display = "none";
+
+                            try {
+                                const response = await fetch(form.action, {
+                                    method: form.method,
+                                    body: new FormData(form),
+                                    headers: { "Accept": "application/json" }
+                                });
+
+                                loading.style.display = "none";
+
+                                if (response.ok) {
+                                    // ✅ Only success message, ignore JSON "next"
+                                    sentMessage.style.display = "block";
+                                    form.reset();
+                                } else {
+                                    // Only parse error if not OK
+                                    const data = await response.json();
+                                    errorMessage.textContent = data.error || "Oops! Something went wrong.";
+                                    errorMessage.style.display = "block";
+                                }
+                            } catch (err) {
+                                loading.style.display = "none";
+                                errorMessage.textContent = "Error: " + err.message;
+                                errorMessage.style.display = "block";
+                            }
+                        });
+                    });
+                </script>
 
             </div>
 
@@ -1560,7 +1605,7 @@
 
     <!-- Vendor JS Files -->
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/php-email-form/validate.js"></script>
+    <!-- <script src="assets/vendor/php-email-form/validate.js"></script> -->
     <script src="assets/vendor/aos/aos.js"></script>
     <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
